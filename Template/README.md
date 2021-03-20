@@ -11,10 +11,19 @@
   - [Minimal Interrupt](#minimal-interrupt)
   - [Minimal FreeRTOS](#minimal-freertos)
   - [Minimal C Stdlib](#minimal-c-stdlib)
+  - [Minimal Unit Testing](#minimal-unit-testing)
+  - [Minimal Unit Testing Meson](#minimal-unit-testing-meson)
+  - [Minimal Interfaces](#minimal-interfaces)
+  - [Minimal Threadx](#minimal-threadx)
 
 # Template
 
-Templates for starting STM32 Projects
+Application templates have been built on the **B-L475E-IOT01A STM32L4 based board**
+
+- Templates are extensions on Baremetal code
+- Templates differ from Baremetal code in the sense that they are on the application level
+  - Baremetal code deals with linker script and architecture based initialization
+  - Templates are based on microcontroller based code i.e application level
 
 # Reference Material 
 
@@ -49,26 +58,55 @@ Templates for starting STM32 Projects
 
 # Project Order
 
-- [x] Minimal_Initial
+- [x] **Minimal_Initial**
   - Writing 2 low level drivers GPIO and UART
-- [x] Minimal_Interrupt
+- [x] **Minimal_Interrupt**
   - Writing GPIO and UART using interrupts
-- [x] Minimal_FreeRTOS
+- [x] **Minimal_FreeRTOS**
   - Integrate Amazon FreeRTOS with the project
   - Create example for `task` and `queue` systems
   - Updated interrupt drivers with FreeRTOS functions
   - Fork from `Minimal_Interrupt`
-- [x] Minimal_C_Stdlib
+- [x] **Minimal_C_Stdlib**
   - Contains C Standard Library syscalls
   - Attached `printf` and `scanf` to UART low level driver 
+  - Adding openocd debugging
+    - openocd commandline
+    - openocd cmake integration
+    - openocd vscode integration with plugin
   - Fork from `Minimal_FreeRTOS`
+- [x] **Minimal_Unit_Testing**
+  - Unity and FFF for Assertion and Mocking
+  - CMake and CTest
+    - Command line usage
+    - VSCode usage
+  - Fork from `Minimal_C_Stdlib`
+- [x] **Minimal_Interfaces**
+  - Creating platform agnostic inteface files for common peripherals
+  - This can be extended to other modules as well
+  - Fork from `Minimal_Unit_Testing`
+  - This project structure is vastly different from the previous projects
+- [x] **Minimal_Libraries**
+  - Compiling each individual layer as its own **static** library
+  - NOTE: We cannot have dynamic libraries here since our generated .elf needs to be flashed/loaded to our microcontroller
+  - Forked from `Minimal_Interfaces`
+- [ ] **Minimal_Tools**
+  - Third party tool integration for cleaner code.
+  - `cppcheck` for static analysis
+  - `clang-format` for code formatting
+  - TODO, Add more tools here as required
 
 # Other Templates
 
-- [ ] Minimal_ThreadX
+- [x] **Minimal_ThreadX**
   - Integrate Microsoft ThreadX with the project
   - Create example for `task` and `queue` systems
   - Fork from `Minimal_Interrupt` 
+- [x] **Minimal_Unit_Testing_Meson**
+  - Unity and FFF for Assertion and Mocking
+  - Meson build system
+  - Changes to source files have also been added to CMake and tested
+  - Forked from `Minimal_Unit_Testing`
 
 # Document
 
@@ -97,3 +135,23 @@ Templates for starting STM32 Projects
 - [x] Newlib_nano
 - [x] Newlib_sbrk
 - [x] Newlib_syscalls
+
+- [x] Openocd_gdb_cli
+- [x] Openocd_gdb_vscode
+- [x] Semihosting
+
+## Minimal Unit Testing
+
+**Open the `Minimal_Unit_Testing` project README**
+
+## Minimal Unit Testing Meson
+
+**Open the `Minimal_Unit_Testing` project README**
+
+## Minimal Interfaces
+
+- [x] Platform_Agnostic_Interfaces
+
+## Minimal Threadx
+
+- [x] Integrate_ThreadX

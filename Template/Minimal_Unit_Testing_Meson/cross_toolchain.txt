@@ -1,0 +1,34 @@
+# Meson Cross-compilation File Base using GCC ARM
+# Requires that arm-none-eabi-* is found in your PATH
+# For more information: http://mesonbuild.com/Cross-compilation.html
+
+# *-gcc-ar is used over *-ar to support LTO flags.
+# Without -gcc-ar, LTO will generate a linker warning:
+# arm-none-eabi-ar: file.o: plugin needed to handle lto object
+[binaries]
+c = 'arm-none-eabi-gcc'
+cpp = 'arm-none-eabi-g++'
+ar = 'arm-none-eabi-gcc-ar'
+strip = 'arm-none-eabi-strip'
+
+# Used in custom targets
+objcopy = 'arm-none-eabi-objcopy'
+objdump = 'arm-none-eabi-objdump'
+size = 'arm-none-eabi-size'
+
+# Used for finding device and flashing
+stm32_programmer_cli = 'STM32_Programmer_CLI'
+
+[properties]
+# Since we are using native tests are well we need to set this to false
+# ! If we try to test a cross compiled elf file we will get a crash
+# NOTE: if we set `needs_exe_wrapper` to true, NO unit tests will run
+# NOTE: if we do not set anything for the below flag i.e undefined, meson will make a guess whether we can run the unit-tests or no
+# In this case it is better to set the flag to false and make sure no cross compiled targets are unit-tested
+needs_exe_wrapper = false
+
+[host_machine]
+system = 'none'
+cpu_family = 'arm'
+cpu = 'cortex-m4'
+endian = 'little'
